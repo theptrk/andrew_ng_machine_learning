@@ -57,7 +57,7 @@ regularization = (lambda/(2*m)) * sum(theta(2:end).^2);
 
 % step: find J which includes cost and regularization
 #
-J = cost_avg + regularization
+J = cost_avg + regularization;
 
 % step: find the gradient
 %
@@ -74,7 +74,7 @@ grad_unregularized = 1/m * (X' * (h - y));
 temp = theta;
 temp(1) = 0;
 grad_regularization = (lambda/m) * temp;
-grad = grad_unregularized + grad_regularization
+grad = grad_unregularized + grad_regularization;
 
 % =============================================================
 
