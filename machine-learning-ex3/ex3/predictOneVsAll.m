@@ -8,13 +8,17 @@ function p = predictOneVsAll(all_theta, X)
 %  of values from 1..K (e.g., p = [1; 3; 1; 2] predicts classes 1, 3, 1, 2
 %  for 4 examples) 
 
-m = size(X, 1);
+% remember size(X): 5000 400 (5000 examples with 400 inputs)
+
+m = size(X, 1); % 5000
+
 num_labels = size(all_theta, 1);
 
 % You need to return the following variables correctly 
-p = zeros(size(X, 1), 1);
+% p is a vector of predictions for each of 5000 examples
+p = zeros(m, 1);
 
-% Add ones to the X data matrix
+% Add ones to the X data matrix (bias factor)
 X = [ones(m, 1) X];
 
 % ====================== YOUR CODE HERE ======================
@@ -29,12 +33,14 @@ X = [ones(m, 1) X];
 %       are in rows, then, you can use max(A, [], 2) to obtain the max 
 %       for each row.
 %       
+% p = oneVsAll(all_theta, X);
 
+% Q: Why does it feel strange to transpose this??
+output = X * all_theta';
+% size(output);
 
-
-
-
-
+[h_max, max_index] = max(output, [], 2);
+p = max_index;
 
 % =========================================================================
 
