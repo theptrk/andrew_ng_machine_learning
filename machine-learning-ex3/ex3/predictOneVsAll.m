@@ -36,6 +36,9 @@ X = [ones(m, 1) X];
 % p = oneVsAll(all_theta, X);
 
 % Q: Why does it feel strange to transpose this??
+
+% X is 5000 * 400
+% all_theta should be 400 * # of labels
 output = X * all_theta';
 % size(output);
 
