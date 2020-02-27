@@ -62,15 +62,113 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Add bias to X
+X = [ones(size(X,1), 1), X];
+
+% Calculate layer2
+layer2 = sigmoid(X * Theta1');
+
+% Add bias to layer2
+layer2 = [ones(size(layer2, 1), 1), layer2];
+
+% Calculate layer3
+layer3 = sigmoid(layer2 * Theta2');
+
+% y is a vector of labels in range [1, 10]
+% Convert the labels to 10 dimensional vectors of values in range [0,1] 
+% where the index represents the label value. 
+
+% So one is: [1; 0; 0; 0; ... 0]. Two is: [0; 1; 0; 0; ... 0]
 
 
+% create a store for our label to label vector conversion 
+y_with_label_vectors = zeros(10, size(y, 1));
+
+% for every label
+for label_index = 1:size(y, 1)
+	% create a "label vector"
+	% for the index for the label
+	label_vector = zeros(10, 1);
+	label = y(label_index);
+	label_vector(label) = 1;
+
+	% place a "label vector"
+	y_with_label_vectors(:, label_index) = label_vector;
+end
+
+unique(y_with_label_vectors == convert_10_dim(y))
+
+function [new_matrix] = convert_10_dim(vector_of_num_labels)
+    y_with_label_vectors = zeros(10, size(y, 1));
+
+    for label_index = 1:size(y, 1)
+        % create a "label vector"
+        % for the index for the label
+        label_vector = zeros(10, 1);
+        label = y(label_index);
+        label_vector(label) = 1;
+
+        % place a "label vector"
+        y_with_label_vectors(:, label_index) = label_vector;
+    end
+
+    new_matrix = y_with_label_vectors;
+end
+
+function [inverted] = invert(v)
+    inverted = (v .* - 1) + 1;
+end
+
+% hx_of_layer3 is [5000 x 10]
+hx_of_layer3 = log(layer3);
+
+cost_of_each_example = zeros(size(layer3, 1), 1);
+% for each row
+% for hx_index = 1:1
+
+for k = 1:size(layer3, 1)
+    example_hx_at_k = layer3(k, :);
+
+    % create temp row
+    cost_row = zeros(1, size(layer3, 2));
+
+    % example output value
+
+    % when y = 1, cost is (-log(hx))
+    y_row = y_with_label_vectors(:, k)';
+    y_is_1_cost = -log(example_hx_at_k);
+    cost_row += (y_is_1_cost .* y_row);
+
+    % when y = 0, cost is (-log(1-hx))
+    inverted_y_row = invert(y_row);
+    y_is_0_cost = -log(1 - example_hx_at_k);
+    cost_row += (y_is_0_cost .* inverted_y_row);
+
+    cost_sum = sum(cost_row);
+
+    cost_of_each_example(k) = cost_sum;
+end
+
+J = (1/size(layer3, 1)) * sum(cost_of_each_example)
+
+%%% QUESTION POINT %%%
+%%% QUESTION POINT %%%
+%%% QUESTION POINT %%%
+% Why did we convert to 10 dim vectors? 
+
+% What do we have now??
+% 1. we have the activation layer 3 (the output layer)
+%       this is the layer of h(x) values
+% 2. we have the output layer (y)
+
+% for every example, we want to do compare the entire 
+
+% cost = sum(layer3 - y_with_label_vectors', 2);
+
+% Cost should be 0.287629
 
 
-
-
-
-
-
+% We need to convert 
 
 
 
