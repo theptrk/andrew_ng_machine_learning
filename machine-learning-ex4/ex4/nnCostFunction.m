@@ -84,20 +84,26 @@ layer3 = sigmoid(layer2 * Theta2');
 y_with_label_vectors = convert_num_labels_dim(y, num_labels);
 
 function [new_matrix] = convert_num_labels_dim(vector_of_num_labels, num_labels)
-    y_with_label_vectors = zeros(num_labels, size(y, 1));
 
-    for label_index = 1:size(y, 1)
-        % create a "label vector"
-        % for the index for the label
+    % create an empty "labels as label vectors" container matrix
+    labels_as_label_vectors = zeros(num_labels, size(vector_of_num_labels, 1));
+
+    for label_index = 1:size(vector_of_num_labels, 1)
+        % create a "label vector" container
         label_vector = zeros(num_labels, 1);
-        label = y(label_index);
-        label_vector(label) = 1;
 
-        % place a "label vector"
-        y_with_label_vectors(:, label_index) = label_vector;
+        % get the label value
+        label_value = vector_of_num_labels(label_index);
+
+        % use label_value as the index to set to 1
+        label_vector(label_value) = 1;
+
+        % add "label vector" to container
+        labels_as_label_vectors(:, label_index) = label_vector;
     end
 
-    new_matrix = y_with_label_vectors;
+    % return container matrix
+    new_matrix = labels_as_label_vectors;
 end
 
 
@@ -135,9 +141,23 @@ for k = 1:size(layer3, 1)
     cost_of_each_example(k) = cost_sum;
 end
 
-J = (1/size(layer3, 1)) * sum(cost_of_each_example);
+J_without_reg = (1/size(layer3, 1)) * sum(cost_of_each_example);
 
+regularization = get_regularization_factor(Theta1, Theta2);
 
+function [regularization] = get_regularization_factor(theta1, theta2)
+    % trim the first bias column out of the theta matrix
+    Theta1_without_bias = Theta1(:, 2:end);
+    Theta2_without_bias = Theta2(:, 2:end);
+
+    Theta1_squared_summed = sum(sum(Theta1_without_bias .* Theta1_without_bias));
+    Theta2_sqaured_summed = sum(sum(Theta2_without_bias .* Theta2_without_bias));
+
+    % return regularization
+    regularization = (lambda/(2*m)) * (Theta1_squared_summed + Theta2_sqaured_summed);
+end
+
+J = J_without_reg + regularization;
 
 % -------------------------------------------------------------
 
