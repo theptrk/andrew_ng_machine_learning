@@ -1,5 +1,10 @@
 % How to: print to terminal
 
+% How to access a row
+row1 = X(1, :);
+row10 = X(10, :);
+row100 = X(100, :);
+
 % How to: for loop; from range x to y (inclusive)
 for index = 1:10
 end
