@@ -24,9 +24,9 @@ core = (1/(2*m)) * sum((h-y).^2);
 reg = (lambda/(2*m)) * sum(theta(2:end).^2);
 J = core + reg;
 
-pd = 1/m * (X' * (h-y))
-reg = [0; (lambda/m) * theta(2:end)]
-grad = pd + reg
+grad_wo_reg = 1/m * (X' * (h-y));
+reg = [0; (lambda/m) * theta(2:end)];
+grad = grad_wo_reg + reg;
 
 
 
