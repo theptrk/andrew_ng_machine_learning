@@ -54,6 +54,27 @@ error_val   = zeros(m, 1);
 % ---------------------- Sample Solution ----------------------
 
 
+for i = 1:m
+    % subset of training set, training labels
+    tset_inputs = X(1:i, :);
+    tset_labels = y(1:i, :);
+    
+    % get model
+    theta = trainLinearReg(tset_inputs, tset_labels, lambda);
+
+    % predict and get error
+    tset_predict = tset_inputs * theta;
+    tset_diff = tset_predict - tset_labels;
+    tset_error = (1/(2*i)) * sum(tset_diff.^2);
+    % store
+    error_train(i) = tset_error;
+
+    % get validation error
+    val_predict = Xval * theta;
+    val_diff = val_predict - yval;
+    val_error = (1/(2*size(Xval,1))) * sum(val_diff.^2);
+    error_val(i) = val_error;
+end 
 
 
 
