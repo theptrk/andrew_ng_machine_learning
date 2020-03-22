@@ -8,5 +8,5 @@ gnuplot> set terminal aqua enhanced title "Figure 1" ...
 ```
 A: set `GNUTERM` to `X11`
 ```
-> setenv("GNUTERM","X11")
+> setenv GNUTERM qt
 ```
