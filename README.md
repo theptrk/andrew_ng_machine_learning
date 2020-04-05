@@ -100,3 +100,10 @@ min(A,[], 1)
 % min_value =  1
 % col_index =  3
 ```
+
+### Get the max value and index of a matrix
+These uses `find` as a shortcut
+```
+minVal = min(min(A));
+[row_index, col_index] = find(A == minVal);
+```
