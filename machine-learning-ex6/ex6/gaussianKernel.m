@@ -16,9 +16,9 @@ sim = 0;
 %
 %
 
-num = sum((x1-x2).^2)
-den = 2 * (sigma ^2)
-sim = exp(-1 * (num/den)) 
+num = sum((x1-x2).^2);
+den = 2 * (sigma ^2);
+sim = exp(-1 * (num/den));
 
 
 
