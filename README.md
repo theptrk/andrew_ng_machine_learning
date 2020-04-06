@@ -57,8 +57,8 @@ end
 
 ### Get the minimum value and index of a matrix
 Here we:
-1. get the column with minimum, derive the row index, 
-2. get the row with minimum, derive the column index
+- 1. get the column with minimum, derive the row index
+- 2. get the row with minimum, derive the column index
 ```Octave
 A=[10 20 30; 3 2 1; 11 22 33]
 
@@ -102,7 +102,7 @@ min(A,[], 1)
 ```
 
 ### Get the max value and index of a matrix
-These uses `find` as a shortcut
+This uses `find` as a shortcut
 ```
 minVal = min(min(A));
 [row_index, col_index] = find(A == minVal);
