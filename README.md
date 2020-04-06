@@ -55,52 +55,6 @@ end
 % min_index =  1
 ```
 
-### Get the minimum value and index of a matrix
-Here we:
-- 1. get the column with minimum, derive the row index
-- 2. get the row with minimum, derive the column index
-```Octave
-A=[10 20 30; 3 2 1; 11 22 33]
-
-% A =
-% 
-%    10   20   30
-%     3    2    1
-%    11   22   33
-
-%%% 1. Get the column with minimum, derive the row index  %%%
-
-% 1a. This gets the colum with minimum
-
-min(A,[], 2)
-% ans =
-% 
-%    10
-%     1
-%    11
-
-% 1b. This gets the colum with minimum AND derives the row index
-
-[min_value, row_index] = min(min(A,[],2))
-% min_value =  1
-% row_index =  2
-
-%%% 2. Get the row with minimum, derive the col index %%%
-
-% 2a. This gets the row with minimum
-
-min(A,[], 1)
-% ans =
-% 
-%    3   2   1
-
-% 2b. This gets the row with minimum AND derives the col index
-
-[min_value, col_index] = min(min(A,[], 1))
-% min_value =  1
-% col_index =  3
-```
-
 ### Get the max value and index of a matrix
 This uses `find` as a shortcut
 ```

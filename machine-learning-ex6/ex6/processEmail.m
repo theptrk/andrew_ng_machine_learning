@@ -22,7 +22,7 @@ word_indices = [];
 % email_contents = email_contents(hdrstart(1):end);
 
 % Lower case
-email_contents = lower(email_contents);
+email_contents = lower(email_contents)
 
 % Strip all HTML
 % Looks for any expression that starts with < and ends with > and replace
@@ -97,7 +97,11 @@ while ~isempty(email_contents)
     %       str2). It will return 1 only if the two strings are equivalent.
     %
 
-
+    for i = 1:length(vocabList)
+        if (strcmp(vocabList{i}, str))
+            word_indices = [word_indices; i];
+        end
+    end
 
 
 
