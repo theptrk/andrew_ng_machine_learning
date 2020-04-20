@@ -35,15 +35,16 @@ predictions ~= yval
 %    0
 ```
 
-### Create a results vector to collect info
+### Create a results vector and iterate to collect info
 ```Octave
 vector(i) = value
 ```
 ```Octave
-results=zeros(8,1)
+results=zeros(4,1)
 
-for i=1:8
-    results(i) = i * 2
+% iterate over a vector
+for i=1:length(results)
+    results(i) = i * 2 
 end
 
 % results =
@@ -52,7 +53,6 @@ end
 %     4
 %     6
 %     8
-%    10
 ```
 
 ### Get the minimum value and index of a vector
@@ -68,4 +68,34 @@ This uses `find` as a shortcut
 ```
 minVal = min(min(A));
 [row_index, col_index] = find(A == minVal);
+```
+
+### Iterate over a matrix
+```Octave
+% Iterate over rows 
+X_ = [1 2 3; 4 5 6]
+
+for i = 1:size(X_, 1)
+    row = X_(i, :)
+    % do something with the row
+end
+
+```
+
+### Filter a matrix by a boolean vector
+```Octave
+XX = [
+    [1 2],
+    [3 4],
+    [5 6],
+]
+bv = [
+    0
+    1
+    1
+]
+XX(bv, :)
+ans =
+
+   5.6586   4.8000
 ```
