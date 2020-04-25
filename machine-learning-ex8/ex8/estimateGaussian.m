@@ -23,8 +23,8 @@ sigma2 = zeros(n, 1);
 
 for i=1:n
     col=X(:,i);
-    col_mu = (1/m) * sum(col)
-    col_sigma2 = (1/m) * sum((col - col_mu).^2)
+    col_mu = (1/m) * sum(col);
+    col_sigma2 = (1/m) * sum((col - col_mu).^2);
     mu(i) = col_mu;
     sigma2(i) = col_sigma2;
 end
