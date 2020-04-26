@@ -41,17 +41,32 @@ Theta_grad = zeros(size(Theta));
 %
 
 
+% dimensions: num of users x num of ratings (5x4)
+predicted_user_rating = X * Theta';
+diff_only_if_user_rating = (predicted_user_rating - Y) .* R;
+cost = diff_only_if_user_rating .^ 2;
 
+J = 1/2 * sum(sum(cost));
 
+% Theta is: num of users x num of features (4x3)
+% X is: num of movies x num of features (5x3)
+% 5x4 * 4x3 = 5x3 which is perfect as a gradient for X (5x3)
+X_grad = diff_only_if_user_rating * Theta;
 
+% 5x4' * 5x3 = 4x3 which is perfect as a gradient for Theta (4x3) 
+%    ^ notice the transpose
+Theta_grad = diff_only_if_user_rating' * X;
 
+% Regularization happens at dimension + same dimensions
 
+J_regularization = (lambda/2) * sum(sum((Theta .^2))) + (lambda/2)*sum(sum(X.^2));
+J = J + J_regularization;
 
+X_grad_regularization = X .* lambda;
+X_grad = X_grad + X_grad_regularization
 
-
-
-
-
+Theta_grad_regularization = Theta .* lambda;
+Theta_grad = Theta_grad + Theta_grad_regularization; 
 
 
 
